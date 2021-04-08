@@ -10,6 +10,7 @@ import { FullLayoutComponent } from "./full-layout/full-layout.component";
 import { SidebarComponent } from "./full-layout/sidebar/sidebar.component";
 import { ToolbarComponent } from "./full-layout/toolbar/toolbar.component";
 import { ThemeModule, darkTheme, lightTheme } from "./theme";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ThemeModule, darkTheme, lightTheme } from "./theme";
     }),
     FormsModule,
     MaterialModule,
-    LayoutModule
+    LayoutModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     AppComponent,
