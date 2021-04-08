@@ -1,0 +1,30 @@
+<div class="main-container">
+  <!-- START TOOLBAR -->
+  <mat-toolbar class="toolbar">
+    <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    <app-toolbar></app-toolbar>
+    <span class="example-spacer"></span>
+    <mat-icon (click)="sidenavSettings.toggle()">settings</mat-icon>
+  </mat-toolbar>
+  <!-- END TOOLBAR -->
+
+  <mat-sidenav-container class="sidenav-container">
+
+    <!-- START SIDENAV FOR MAIN -->
+    <mat-sidenav class="sidenav" #sidenav mode="side">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <!-- START SIDENAV FOR MAIN -->
+
+    <!-- START SIDEBAR FOR SETTING -->
+    <mat-sidenav #sidenavSettings position="end">
+    </mat-sidenav>
+    <!-- END SIDEBAR FOR SETTING -->
+
+    <mat-sidenav-content class="sidenav-content">
+      <div class="page-content">
+        Content
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
