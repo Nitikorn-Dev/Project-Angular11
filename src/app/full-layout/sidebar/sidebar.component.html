@@ -1,1 +1,7 @@
-<p>Sidebar</p>
+<mat-nav-list>
+  <a class="menu-items" mat-list-item [routerLink]="item.state" *ngFor="let item of this.menuItems">
+    <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+    <h3 mat-line>{{item.name}}</h3>
+    <p mat-line>Decription :{{item.type}}</p>
+  </a>
+</mat-nav-list>

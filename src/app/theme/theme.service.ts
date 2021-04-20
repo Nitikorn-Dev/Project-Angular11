@@ -6,7 +6,8 @@ export class ThemeService {
   constructor(
     @Inject(THEMES) public themes: Theme[],
     @Inject(ACTIVE_THEME) public theme: string
-  ) {console.log(theme)
+  ) {
+    // console.log(theme)
     // console.log(this.theme)
     // console.log(this.themes)
     // this.getActiveTheme()
@@ -19,7 +20,7 @@ export class ThemeService {
     if (!theme) {
       throw new Error(`Theme not found ${name}`);
     }
-    // console.log(`getTheme :`,theme);
+    // console.log(theme)
     return theme;
   }
 
@@ -35,9 +36,9 @@ export class ThemeService {
     this.themes.push(theme);
   }
 
-  updateTheme(name: string, properties: { [key: string]: string }) {
-    const theme = this.getTheme(name);
-    theme.properties = { ...theme.properties, ...properties };
-    console.log(theme.properties);
-  }
+  // updateTheme(name: string, properties: { [key: string]: string }) {
+  //   const theme = this.getTheme(name);
+  //   theme.properties = { ...theme.properties, ...properties };
+  //   console.log(theme.properties);
+  // }
 }

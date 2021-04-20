@@ -1,0 +1,107 @@
+
+  :root {
+  --background: #1F2125;
+    --on-background:#fff;
+    --primary:#2F90FF;
+    --on-primary:#fff;
+    --secondary:#474A4F;
+    --on-secondary:fff;
+    --surface:#282A2F;
+    --on-surface:#dddede;
+    --error: #E74E3C;
+    --on-error:#fff;
+  }
+
+.main-container {
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.fx {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left:0;
+  right: 0;
+  transition-duration: .4s;
+  transition-timing-function: cubic-bezier(.25, .8, .25, 1);
+
+}
+
+.grow {
+  left: 200px;
+  width: calc(100% - 200px);
+}
+.shrink {
+  left:0px;
+  width: 100%;
+}
+
+
+.toolbar {
+  background: var(--background);
+  color: var(--on-background);
+  box-shadow: var(--box-shadow);
+}
+
+
+
+.sidenav-container {
+  background-color: var(--background);
+  color: var(--on-background);
+  flex: 1 0 auto;
+  z-index: 0;
+}
+
+.sidenav {
+  width: 200px;
+  background: var(--background);
+  color:var(--on-background);
+  flex: 1;
+
+  .sidenav-head {
+    background: var(--background);
+    color:var(--on-background);
+  }
+
+}
+
+.sidenav-setting {
+  background-color: rgba(54, 54, 54, 0.74);
+}
+
+.page-content {
+  padding: 20px;
+  /* box-shadow: var(--box-shadow); */
+}
+
+.sidenav-content {
+  /* border: 1px solid rgb(255, 0, 0); */
+}
+
+
+.btn-setting {
+  position: absolute;
+  left:-10px;
+}
+
+
+
+// STYLE GOLBAL
+
+.fill-spacer {
+  flex: 1 1 auto;
+}
+
+.btn {
+  background: var(--background);
+  color: var(--on-background);
+}
+
+
+.router-link-active {background-color: #414548;}

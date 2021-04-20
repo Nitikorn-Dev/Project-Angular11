@@ -4,6 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { LayoutModule } from "@angular/cdk/layout";
 
+import { AppRoutingModule  } from './app-routing.module';
 import { AppComponent } from "./app.component";
 import { MaterialModule } from "./material.module";
 import { FullLayoutComponent } from "./full-layout/full-layout.component";
@@ -16,9 +17,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     CommonModule,
     BrowserModule,
+    AppRoutingModule,
     ThemeModule.forRoot({
       themes: [darkTheme, lightTheme],
-      active: "dark"
+      active: "light"
     }),
     FormsModule,
     MaterialModule,

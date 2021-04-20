@@ -1,57 +1,59 @@
-import { Component, OnInit } from "@angular/core";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { BreakpointService } from '../serviced/breakpoin.service';
 
-import { Subject,BehaviorSubject,ReplaySubject } from 'rxjs';
-import { map } from "rxjs/operators";
+import { map,switchMap } from "rxjs/operators";
+import { Observable } from 'rxjs';
 
-export interface GridBreakpoint {
-  xl: { mobileQuery: boolean; cols: number };
-  lg: { mobileQuery: boolean; cols: number };
-  md: { mobileQuery: boolean; cols: number };
-  sm: { mobileQuery: boolean; cols: number };
-  xs: { mobileQuery: boolean; cols: number };
-}
+
 export interface Grid{
   mobileQuery:boolean;
   cols:number;
 }
 
+
+
 @Component({
   selector: "app-full-layout",
   templateUrl: "./full-layout.component.html",
-  styleUrls: ["./full-layout.component.css"]
+  styleUrls: ["./full-layout.component.scss"]
 })
-export class FullLayoutComponent implements OnInit {
+export class FullLayoutComponent implements OnInit, OnDestroy {
 
-  breakpoints$ = new ReplaySubject<Grid>(1)
+  breakPoints$:Observable<any>;
 
+  mobileQuery:boolean;
 
-  grid:any;
+  isSidenav:boolean;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
-   this.grid = this.breakpointObserver
-      .observe([
-        Breakpoints.XSmall,
-        Breakpoints.Small,
-        Breakpoints.Medium,
-        Breakpoints.Large,
-        Breakpoints.XLarge
-      ])
-      .pipe(
-        map(result => {
-          if (result.matches) {
-            if(result.breakpoints[Breakpoints.XSmall]){
-              
-              this.breakpoints$.next({mobileQuery:false,cols:5})
-            }
+  constructor(public breakpoinService:BreakpointService){
+    this.breakpoinService.layoutChanges.subscribe(res=>{console.log(res); this.mobileQuery = res.mobileQuery})
+    this.breakPoints$ = this.breakpoinService.layoutChanges;
 
-          }
+  }
 
-        })
-      );
+  snvOpen(){
+    this.isSidenav = true;
+  }
+
+  snvClose(){
+    this.isSidenav = false;
   }
 
   ngOnInit() {
-    this.breakpoints$.subscribe(console.log)
+
    }
-}
+
+   ngOnDestroy() {
+
+   }
+
+
+   fillerContent = Array.from({length: 50}, () =>
+   `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
+
+
+  }
