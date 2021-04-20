@@ -13,8 +13,8 @@
 
   <mat-sidenav-container class="sidenav-container" autosize>
     <!-- START SIDENAV -->
-    <mat-sidenav class="sidenav" #sidenav [mode]="this.mobileQuery ? 'over':'side'" [opened]="!this.mobileQuery" [fixedInViewport]="true"
-    (openedStart)="snvOpen()" (closedStart)="snvClose()">
+    <mat-sidenav class="sidenav" #sidenav [mode]="this.mobileQuery ? 'over':'side'" [opened]="!this.mobileQuery"
+      [fixedInViewport]="true" (openedStart)="snvOpen()" (closedStart)="snvClose()">
 
       <mat-toolbar class="sidenav-head">
         <span>Menu</span>
@@ -31,16 +31,16 @@
 
 
     <!-- START SIDEBAR FOR SETTING -->
-    <mat-sidenav class="sidenav-setting" #snvSettings position="end"
-    [fixedInViewport]="true" fixedTopGap="0" fixedBottomGap="0">
-    <mat-toolbar class="sidenav-head">
-      Settings
-      <span class="fill-spacer"></span>
-      <button class="btn" mat-mini-fab (click)="snvSettings.close()" matTooltip="sidenav close"
+    <mat-sidenav class="sidenav-setting" #snvSettings position="end" [fixedInViewport]="true" fixedTopGap="0"
+      fixedBottomGap="0">
+      <mat-toolbar class="sidenav-head">
+        Settings
+        <span class="fill-spacer"></span>
+        <button class="btn" mat-mini-fab (click)="snvSettings.close()" matTooltip="sidenav close"
         matTooltipPosition="right">
         <mat-icon class="">arrow_back_ios_new</mat-icon>
       </button>
-    </mat-toolbar>
+      </mat-toolbar>
       <h3>Sidenav Settings</h3>
     </mat-sidenav>
     <!-- END SIDEBAR FOR SETTING -->
