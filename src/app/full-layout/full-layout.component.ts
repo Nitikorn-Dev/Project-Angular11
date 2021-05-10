@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy,AfterViewInit } from "@angular/core";
+import { ViewChild } from "@angular/core";
+import { MatSidenavContainer } from '@angular/material/sidenav';
 import { BreakpointService } from '../serviced/breakpoin.service';
 
 import { map,switchMap } from "rxjs/operators";
 import { Observable } from 'rxjs';
+import { onMainContentChange, onToolbarChange } from './animation';
 
 
 export interface Grid{
@@ -15,21 +18,40 @@ export interface Grid{
 @Component({
   selector: "app-full-layout",
   templateUrl: "./full-layout.component.html",
-  styleUrls: ["./full-layout.component.scss"]
+  styleUrls: ["./full-layout.component.scss"],
+  animations:[onMainContentChange,onToolbarChange]
 })
-export class FullLayoutComponent implements OnInit, OnDestroy {
+export class FullLayoutComponent implements OnInit, OnDestroy,AfterViewInit {
+  @ViewChild(MatSidenavContainer) public container:MatSidenavContainer;
 
   breakPoints$:Observable<any>;
 
   mobileQuery:boolean;
 
   isSidenav:boolean;
+  public SideNavChange: boolean;
+  public sidenavMode:string;
+  public toolbarMode:string;
+  mode:string;
 
   constructor(public breakpoinService:BreakpointService){
-    this.breakpoinService.layoutChanges.subscribe(res=>{console.log(res); this.mobileQuery = res.mobileQuery})
+    this.breakpoinService.layoutChanges.subscribe(res=>{console.log(res);
+    this.mobileQuery = res.mobileQuery
+    this.mode = res.mode;
+    if(!res.mobileQuery){
+      // this.SideNavChange = !res.mobileQuery;
+      this.sidenavMode = 'open';
+      this.toolbarMode = 'open';
+    }else{
+      // this.container.updateContentMargins();
+      this.toolbarMode = 'default';
+    }
+  })
     this.breakPoints$ = this.breakpoinService.layoutChanges;
 
   }
+
+  ngAfterViewInit(){}
 
   snvOpen(){
     this.isSidenav = true;
@@ -46,6 +68,22 @@ export class FullLayoutComponent implements OnInit, OnDestroy {
    ngOnDestroy() {
 
    }
+
+
+   onSideNavChange(result){
+     console.log('changed sidebar',result)
+    // this.container.updateContentMargins();
+    // this.SideNavChange = result;
+    this.sidenavMode = result;
+    this.toolbarMode = result;
+
+   }
+
+   onChang(){
+    this.container.updateContentMargins();
+   }
+
+
 
 
    fillerContent = Array.from({length: 50}, () =>

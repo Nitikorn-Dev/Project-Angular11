@@ -1,45 +1,23 @@
 <div class="main-container">
 
-  <!-- START TOOLBAR -->
-  <!-- <mat-toolbar class="toolbar fx">
-    <button mat-button (click)="sidenav.toggle()">
-      <mat-icon >menu</mat-icon>
-    </button>
-    <app-toolbar></app-toolbar>
-    <span class="fill-spacer"></span>
-    <mat-icon (click)="snvSettings.toggle()">settings</mat-icon>
-  </mat-toolbar> -->
-  <!-- END TOOLBAR -->
-
-  <mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
     <!-- START SIDENAV -->
-    <mat-sidenav class="sidenav" #sidenav [mode]="this.mobileQuery ? 'over':'side'" [opened]="!this.mobileQuery"
+    <mat-sidenav autoFocus="true" (openedChange)="onChang()" class="sidenav" #sidenav [mode]="mode" [opened]="!this.mobileQuery"
       [fixedInViewport]="true" (openedStart)="snvOpen()" (closedStart)="snvClose()">
-
-      <mat-toolbar class="sidenav-head">
-        <span>Menu</span>
-        <span class="fill-spacer"></span>
-        <button class="btn" mat-mini-fab (click)="sidenav.close()" matTooltip="sidenav close"
-          matTooltipPosition="right">
-          <mat-icon class="">arrow_back_ios_new</mat-icon>
-        </button>
-      </mat-toolbar>
-      <app-sidebar></app-sidebar>
+      <app-sidebar (onSideNavChange)="onSideNavChange($event)" [sidenav]="sidenav" [mobileQuery]="mobileQuery"></app-sidebar>
     </mat-sidenav>
     <!-- END SIDENAV -->
 
 
 
     <!-- START SIDEBAR FOR SETTING -->
-    <mat-sidenav class="sidenav-setting" #snvSettings position="end" [fixedInViewport]="true" fixedTopGap="0"
-      fixedBottomGap="0">
+    <mat-sidenav class="sidenav-setting" #snvSettings position="end" [fixedInViewport]="true">
       <mat-toolbar class="sidenav-head">
-        Settings
         <span class="fill-spacer"></span>
         <button class="btn" mat-mini-fab (click)="snvSettings.close()" matTooltip="sidenav close"
         matTooltipPosition="right">
-        <mat-icon class="">arrow_back_ios_new</mat-icon>
-      </button>
+        <mat-icon class="">arrow_forward_ios</mat-icon>
+      </button><span style="margin-left: 10px;">Settings</span>
       </mat-toolbar>
       <h3>Sidenav Settings</h3>
     </mat-sidenav>
@@ -48,15 +26,21 @@
 
 
     <!-- START CONTENT -->
-    <mat-sidenav-content class="sidenav-content">
+    <mat-sidenav-content  class="sidenav-content"  [@onMainContentChange]="sidenavMode">
 
       <!-- START TOOLBAR -->
-      <mat-toolbar class="toolbar fx" [ngClass]="{'grow':isSidenav,'shrink':!isSidenav || mobileQuery}">
-        <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-toolbar class="toolbar fx" [@onToolbarChange]="toolbarMode" >
+        <button *ngIf="mobileQuery" mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
         <app-toolbar></app-toolbar>
         <span class="fill-spacer"></span>
+        <button mat-icon-button (click)="(mode === 'over')?mode='side':mode='over'">
+          <mat-icon>radio_button_checked</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onChang()">
+          <mat-icon>chrome_reader_mode</mat-icon>
+        </button>
         <button mat-icon-button matTooltip="More options"
         [matMenuTriggerFor]="moreMenu">
           <mat-icon>more_vert</mat-icon>
@@ -73,7 +57,9 @@
       <div class="page-content">
         <h2>Conntent</h2>
         <h3 *ngIf="true">{{(this.breakPoints$ | async)?.state}}</h3>
-        <p *ngFor="let content of fillerContent">{{content}}</p>
+        <mat-card>
+          <p *ngFor="let content of fillerContent">{{content}}</p>
+        </mat-card>
       </div>
     </mat-sidenav-content>
     <!-- END CONTENT -->
