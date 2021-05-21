@@ -1,9 +1,9 @@
-<div class="main-container">
+<div class="main-container" theme>
 
-  <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
+  <mat-sidenav-container class="sidenav-container">
     <!-- START SIDENAV -->
-    <mat-sidenav autoFocus="true" (openedChange)="onChang()" class="sidenav" #sidenav [mode]="mode" [opened]="!this.mobileQuery"
-      [fixedInViewport]="true" (openedStart)="snvOpen()" (closedStart)="snvClose()">
+    <mat-sidenav class="sidenav" #sidenav [mode]="mode" [opened]="!this.mobileQuery"
+      [fixedInViewport]="true">
       <app-sidebar (onSideNavChange)="onSideNavChange($event)" [sidenav]="sidenav" [mobileQuery]="mobileQuery"></app-sidebar>
     </mat-sidenav>
     <!-- END SIDENAV -->
@@ -37,9 +37,6 @@
         <span class="fill-spacer"></span>
         <button mat-icon-button (click)="(mode === 'over')?mode='side':mode='over'">
           <mat-icon>radio_button_checked</mat-icon>
-        </button>
-        <button mat-icon-button (click)="onChang()">
-          <mat-icon>chrome_reader_mode</mat-icon>
         </button>
         <button mat-icon-button matTooltip="More options"
         [matMenuTriggerFor]="moreMenu">

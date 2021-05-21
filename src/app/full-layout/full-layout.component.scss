@@ -1,16 +1,16 @@
 
-  :root {
-  --background: #1F2125;
-    --on-background:#fff;
-    --primary:#2F90FF;
-    --on-primary:#fff;
-    --secondary:#474A4F;
-    --on-secondary:fff;
-    --surface:#282A2F;
-    --on-surface:#dddede;
-    --error: #E74E3C;
-    --on-error:#fff;
-  }
+  // :root {
+  // --background: #1F2125;
+  //   --on-background:#fff;
+  //   --primary:#2F90FF;
+  //   --on-primary:#fff;
+  //   --secondary:#474A4F;
+  //   --on-secondary:fff;
+  //   --surface:#282A2F;
+  //   --on-surface:#dddede;
+  //   --error: #E74E3C;
+  //   --on-error:#fff;
+  // }
 
 .main-container {
   display: flex;
@@ -57,14 +57,13 @@
 }
 
 .sidenav {
+  z-index: 10;
   background: var(--background);
   color:var(--on-background);
   box-shadow: var(--box-shadow);
   flex: 1;
-  background-image:  url(../../assets/images/sidebar-bg/01.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  // border:1px solid red;
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
 
   .sidenav-head {
     // background: var(--background);
@@ -82,6 +81,7 @@
 }
 
 .page-content {
+  z-index: 0;
   margin-top: 60px;
   padding: 20px;
 }
@@ -96,7 +96,10 @@
   left:-10px;
 }
 
-
+mat-card{
+  z-index:0;
+  background-color: rgba(204, 204, 204, 0.267);
+}
 
 // STYLE GOLBAL
 

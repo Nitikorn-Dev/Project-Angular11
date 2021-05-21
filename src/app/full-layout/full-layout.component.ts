@@ -28,7 +28,6 @@ export class FullLayoutComponent implements OnInit, OnDestroy,AfterViewInit {
 
   mobileQuery:boolean;
 
-  isSidenav:boolean;
   public SideNavChange: boolean;
   public sidenavMode:string;
   public toolbarMode:string;
@@ -39,11 +38,9 @@ export class FullLayoutComponent implements OnInit, OnDestroy,AfterViewInit {
     this.mobileQuery = res.mobileQuery
     this.mode = res.mode;
     if(!res.mobileQuery){
-      // this.SideNavChange = !res.mobileQuery;
       this.sidenavMode = 'open';
       this.toolbarMode = 'open';
     }else{
-      // this.container.updateContentMargins();
       this.toolbarMode = 'default';
     }
   })
@@ -53,13 +50,7 @@ export class FullLayoutComponent implements OnInit, OnDestroy,AfterViewInit {
 
   ngAfterViewInit(){}
 
-  snvOpen(){
-    this.isSidenav = true;
-  }
 
-  snvClose(){
-    this.isSidenav = false;
-  }
 
   ngOnInit() {
 
@@ -71,17 +62,13 @@ export class FullLayoutComponent implements OnInit, OnDestroy,AfterViewInit {
 
 
    onSideNavChange(result){
-     console.log('changed sidebar',result)
-    // this.container.updateContentMargins();
-    // this.SideNavChange = result;
+     console.log('changed sidebar',result);
     this.sidenavMode = result;
     this.toolbarMode = result;
 
    }
 
-   onChang(){
-    this.container.updateContentMargins();
-   }
+
 
 
 

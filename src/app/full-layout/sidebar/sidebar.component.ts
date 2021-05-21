@@ -48,9 +48,7 @@ export class SidebarComponent implements OnInit {
     if (!this.isMouseIn) {
       this.isOpen = false;
     }
-    if(this.mobileQuery){
-    // this.onSideNavChange.emit(null);
-    }else{
+    if(!this.mobileQuery){
       this.onSideNavChange.emit(this.isFocusIn?'open':'close');
     }
   }
