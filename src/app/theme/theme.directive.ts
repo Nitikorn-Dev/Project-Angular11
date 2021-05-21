@@ -14,7 +14,6 @@ export class ThemeDirective implements OnInit {
 
   ngOnInit() {
     const active = this._themeService.getActiveTheme();
-    console.log(active)
     if (active) {
       this.updateTheme(active);
     }

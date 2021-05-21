@@ -1,31 +1,65 @@
-<div class="main-container">
-  <!-- START TOOLBAR -->
-  <mat-toolbar class="toolbar">
-    <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-    <app-toolbar></app-toolbar>
-    <span class="example-spacer"></span>
-    <mat-icon (click)="sidenavSettings.toggle()">settings</mat-icon>
-  </mat-toolbar>
-  <!-- END TOOLBAR -->
+<div class="main-container" theme>
 
   <mat-sidenav-container class="sidenav-container">
-
-    <!-- START SIDENAV FOR MAIN -->
-    <mat-sidenav class="sidenav" #sidenav mode="side">
-      <app-sidebar></app-sidebar>
+    <!-- START SIDENAV -->
+    <mat-sidenav class="sidenav" #sidenav [mode]="mode" [opened]="!this.mobileQuery"
+      [fixedInViewport]="true">
+      <app-sidebar (onSideNavChange)="onSideNavChange($event)" [sidenav]="sidenav" [mobileQuery]="mobileQuery"></app-sidebar>
     </mat-sidenav>
-    <!-- START SIDENAV FOR MAIN -->
+    <!-- END SIDENAV -->
+
+
 
     <!-- START SIDEBAR FOR SETTING -->
-    <mat-sidenav class="sidenav" #sidenavSettings position="end">
+    <mat-sidenav class="sidenav-setting" #snvSettings position="end" [fixedInViewport]="true">
+      <mat-toolbar class="sidenav-head">
+        <span class="fill-spacer"></span>
+        <button class="btn" mat-mini-fab (click)="snvSettings.close()" matTooltip="sidenav close"
+        matTooltipPosition="right">
+        <mat-icon class="">arrow_forward_ios</mat-icon>
+      </button><span style="margin-left: 10px;">Settings</span>
+      </mat-toolbar>
       <h3>Sidenav Settings</h3>
     </mat-sidenav>
     <!-- END SIDEBAR FOR SETTING -->
 
-    <mat-sidenav-content class="sidenav-content">
+
+
+    <!-- START CONTENT -->
+    <mat-sidenav-content  class="sidenav-content"  [@onMainContentChange]="sidenavMode">
+
+      <!-- START TOOLBAR -->
+      <mat-toolbar class="toolbar fx" [@onToolbarChange]="toolbarMode" >
+        <button *ngIf="mobileQuery" mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <app-toolbar></app-toolbar>
+        <span class="fill-spacer"></span>
+        <button mat-icon-button (click)="(mode === 'over')?mode='side':mode='over'">
+          <mat-icon>radio_button_checked</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="More options"
+        [matMenuTriggerFor]="moreMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #moreMenu>
+          <button mat-menu-item (click)="snvSettings.open()">
+            <mat-icon>color_lens</mat-icon>
+            <span>Theme</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar>
+      <!-- END TOOLBAR -->
+
       <div class="page-content">
-        Content
+        <h2>Conntent</h2>
+        <h3 *ngIf="true">{{(this.breakPoints$ | async)?.state}}</h3>
+        <mat-card>
+          <p *ngFor="let content of fillerContent">{{content}}</p>
+        </mat-card>
       </div>
     </mat-sidenav-content>
+    <!-- END CONTENT -->
+
   </mat-sidenav-container>
 </div>

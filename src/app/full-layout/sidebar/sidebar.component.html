@@ -1,1 +1,23 @@
-<p>Sidebar</p>
+<aside aria-label="Icon Sidebar" class="ng-icon-sidebar ng-icon-sidebar--{{
+  opened ? 'opened' : 'closed'
+}}" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" role="complementary">
+  <mat-toolbar class="side-head">
+    <img class="jim" src="../../assets/images/shopping.png" alt="" />
+    <h3 style="margin-left:20px;">SHOP</h3>
+    <span class="fill-spacer"></span>
+    <button mat-icon-button *ngIf="!mobileQuery" (click)="onClick()">
+      <mat-icon>{{FocusIn?'toggle_on':'toggle_off'}}</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="mobileQuery" (click)="sidenav.close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <mat-nav-list>
+    <a class="menu-items" mat-list-item [routerLink]="item.state" *ngFor="let item of this.menuItems">
+      <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+      <h3 mat-line>{{item.name}}</h3>
+      <p mat-line>Decription :{{item.type}}</p>
+    </a>
+  </mat-nav-list>
+</aside>

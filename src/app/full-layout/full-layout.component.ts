@@ -1,57 +1,84 @@
-import { Component, OnInit } from "@angular/core";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { Component, OnInit, OnDestroy,AfterViewInit } from "@angular/core";
+import { ViewChild } from "@angular/core";
+import { MatSidenavContainer } from '@angular/material/sidenav';
+import { BreakpointService } from '../serviced/breakpoin.service';
 
-import { Subject,BehaviorSubject,ReplaySubject } from 'rxjs';
-import { map } from "rxjs/operators";
+import { map,switchMap } from "rxjs/operators";
+import { Observable } from 'rxjs';
+import { onMainContentChange, onToolbarChange } from './animation';
 
-export interface GridBreakpoint {
-  xl: { mobileQuery: boolean; cols: number };
-  lg: { mobileQuery: boolean; cols: number };
-  md: { mobileQuery: boolean; cols: number };
-  sm: { mobileQuery: boolean; cols: number };
-  xs: { mobileQuery: boolean; cols: number };
-}
+
 export interface Grid{
   mobileQuery:boolean;
   cols:number;
 }
 
+
+
 @Component({
   selector: "app-full-layout",
   templateUrl: "./full-layout.component.html",
-  styleUrls: ["./full-layout.component.css"]
+  styleUrls: ["./full-layout.component.scss"],
+  animations:[onMainContentChange,onToolbarChange]
 })
-export class FullLayoutComponent implements OnInit {
+export class FullLayoutComponent implements OnInit, OnDestroy,AfterViewInit {
+  @ViewChild(MatSidenavContainer) public container:MatSidenavContainer;
 
-  breakpoints$ = new ReplaySubject<Grid>(1)
+  breakPoints$:Observable<any>;
 
+  mobileQuery:boolean;
 
-  grid:any;
+  public SideNavChange: boolean;
+  public sidenavMode:string;
+  public toolbarMode:string;
+  mode:string;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
-   this.grid = this.breakpointObserver
-      .observe([
-        Breakpoints.XSmall,
-        Breakpoints.Small,
-        Breakpoints.Medium,
-        Breakpoints.Large,
-        Breakpoints.XLarge
-      ])
-      .pipe(
-        map(result => {
-          if (result.matches) {
-            if(result.breakpoints[Breakpoints.XSmall]){
-              
-              this.breakpoints$.next({mobileQuery:false,cols:5})
-            }
+  constructor(public breakpoinService:BreakpointService){
+    this.breakpoinService.layoutChanges.subscribe(res=>{console.log(res);
+    this.mobileQuery = res.mobileQuery
+    this.mode = res.mode;
+    if(!res.mobileQuery){
+      this.sidenavMode = 'open';
+      this.toolbarMode = 'open';
+    }else{
+      this.toolbarMode = 'default';
+    }
+  })
+    this.breakPoints$ = this.breakpoinService.layoutChanges;
 
-          }
-
-        })
-      );
   }
 
+  ngAfterViewInit(){}
+
+
+
   ngOnInit() {
-    this.breakpoints$.subscribe(console.log)
+
    }
-}
+
+   ngOnDestroy() {
+
+   }
+
+
+   onSideNavChange(result){
+     console.log('changed sidebar',result);
+    this.sidenavMode = result;
+    this.toolbarMode = result;
+
+   }
+
+
+
+
+
+
+   fillerContent = Array.from({length: 50}, () =>
+   `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
+
+
+  }
